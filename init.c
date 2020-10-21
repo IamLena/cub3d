@@ -6,7 +6,7 @@
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 16:49:43 by nalecto           #+#    #+#             */
-/*   Updated: 2020/09/24 16:02:37 by nalecto          ###   ########.fr       */
+/*   Updated: 2020/10/21 12:43:07 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ static void setzeros1(t_game *game)
 	game->paramflag = 0;
 	game->width = 0;
 	game->height = 0;
-	// game->no = 0;
-	// game->so = 0;
-	// game->we = 0;
-	// game->ea = 0;
+	game->no = 0;
+	game->so = 0;
+	game->we = 0;
+	game->ea = 0;
 	game->s = 0;
 	game->f = 0;
 	game->c = 0;
@@ -91,7 +91,6 @@ static void setzeros2(t_game *game)
 	game->bpp = 0;
 	game->llen = 0;
 	game->endian = 0;
-	game->renderflag = 0;
 }
 
 void init_game(char *filename, t_game *game)
@@ -108,9 +107,18 @@ void init_game(char *filename, t_game *game)
 	if (!(game->imgadr = mlx_get_data_addr(game->img, &game->bpp, &game->llen, &game->endian)))
 		errorexit(MLXERROR, "get_data_addr failed", 0);
 	game->no_tex = settexture(game->mlx_con, game->no);
-	game->so_tex = settexture(game->mlx_con, game->so);
-	game->we_tex = settexture(game->mlx_con, game->we);
-	game->ea_tex = settexture(game->mlx_con, game->ea);
 	if (!game->no_tex.img)
 		errorexit(MAPERROR, "north xpm file error", 0);
+	game->so_tex = settexture(game->mlx_con, game->so);
+	if (!game->so_tex.img)
+		errorexit(MAPERROR, "south xpm file error", 0);
+	game->we_tex = settexture(game->mlx_con, game->we);
+	if (!game->we_tex.img)
+		errorexit(MAPERROR, "west xpm file error", 0);
+	game->ea_tex = settexture(game->mlx_con, game->ea);
+	if (!game->ea_tex.img)
+		errorexit(MAPERROR, "east xpm file error", 0);
+	game->s_tex = settexture(game->mlx_con, game->s);
+	if (!game->s_tex.img)
+		errorexit(MAPERROR, "sprite xpm file error", 0);
 }

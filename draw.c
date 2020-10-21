@@ -6,7 +6,7 @@
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 14:39:42 by nalecto           #+#    #+#             */
-/*   Updated: 2020/10/21 12:22:27 by nalecto          ###   ########.fr       */
+/*   Updated: 2020/10/21 14:06:05 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,14 +186,69 @@ int draw_walls(t_game *game)
         {
             int pixel = 0;
             int x = inter.tex_w * game->so_tex.width;
-            int height_scale = inter.height / game->so_tex.height;
+            // int height_scale = inter.height / game->so_tex.height;
+            double height_scale = inter.height / game->so_tex.height;
             while (pixel < game->so_tex.height)
             {
                 int k = 0;
                 int color = *(int*)(game->so_tex.addr + (4 * game->so_tex.width * pixel) + (4 * x));
                 while (k < height_scale)
                 {
-                    my_mlx_pixel_put(game, cnt, horizon - inter.height / 2 + pixel * height_scale + k, color);
+                    my_mlx_pixel_put(game, cnt, (int)(horizon - inter.height / 2 + pixel * height_scale + k), color);
+                    k++;
+                }
+                pixel++;
+            }
+        }
+        else if (inter.type == NO_FLAG)
+        {
+            int pixel = 0;
+            int x = inter.tex_w * game->no_tex.width;
+            // int height_scale = inter.height / game->no_tex.height;
+            double height_scale = inter.height / game->no_tex.height;
+            while (pixel < game->no_tex.height)
+            {
+                int k = 0;
+                int color = *(int*)(game->no_tex.addr + (4 * game->no_tex.width * pixel) + (4 * x));
+                while (k < height_scale)
+                {
+                    my_mlx_pixel_put(game, cnt, (int)(horizon - inter.height / 2 + pixel * height_scale + k), color);
+                    k++;
+                }
+                pixel++;
+            }
+        }
+        else if (inter.type == WE_FLAG)
+        {
+            int pixel = 0;
+            int x = inter.tex_w * game->we_tex.width;
+            // int height_scale = inter.height / game->we_tex.height;
+            double height_scale = inter.height / game->we_tex.height;
+            while (pixel < game->we_tex.height)
+            {
+                int k = 0;
+                int color = *(int*)(game->we_tex.addr + (4 * game->we_tex.width * pixel) + (4 * x));
+                while (k < height_scale)
+                {
+                    my_mlx_pixel_put(game, cnt, (int)(horizon - inter.height / 2 + pixel * height_scale + k), color);
+                    k++;
+                }
+                pixel++;
+            }
+        }
+        else if (inter.type == EA_FLAG)
+        {
+            int pixel = 0;
+            int x = inter.tex_w * game->ea_tex.width;
+            // int height_scale = inter.height / game->ea_tex.height;
+            double height_scale = inter.height / game->ea_tex.height;
+            while (pixel < game->ea_tex.height)
+            {
+                int k = 0;
+                int color = *(int*)(game->ea_tex.addr + (4 * game->ea_tex.width * pixel) + (4 * x));
+                while (k < height_scale)
+                {
+                    my_mlx_pixel_put(game, cnt, (int)(horizon - inter.height / 2 + pixel * height_scale + k), color);
                     k++;
                 }
                 pixel++;

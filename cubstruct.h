@@ -40,12 +40,13 @@ typedef struct s_wall_inter {
 
 typedef struct s_game {
 	unsigned char	paramflag;
-	int		width; 
+	int		width;
 	int		height;
 	t_texture no_tex;
 	t_texture so_tex;
 	t_texture we_tex;
 	t_texture ea_tex;
+	t_texture s_tex;
 	char	*no;
 	char	*so;
 	char	*we;
@@ -60,7 +61,6 @@ typedef struct s_game {
 	int		bpp;
 	int		llen;
 	int		endian;
-	int		renderflag;
 	void	*map;
 	int		mapwidth;
 	int		mapheight;
