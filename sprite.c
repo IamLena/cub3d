@@ -147,8 +147,9 @@ void draw_sprite(t_game *game)
 		// double xline1 = game->width / 2  + (angle - game->view_angle) / anglestep;
 
 		// double width= abs(xline0 - xline1);
-		double height = WIN_H / sorted_list->dist;
-		double width = height;
+		double height = game->width / sorted_list->dist;
+		// double width = height;
+		double width = game->width / sorted_list->dist;
 		double xline0 = xline - width / 2;
 
 		double height_scale = height / game->s_tex.height;
