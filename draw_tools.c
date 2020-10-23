@@ -6,19 +6,23 @@
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 15:30:43 by nalecto           #+#    #+#             */
-/*   Updated: 2020/09/14 09:42:48 by nalecto          ###   ########.fr       */
+/*   Updated: 2020/10/22 00:43:29 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw_tools.h"
 #include "cub3d.h"
 
-int rgb_to_int(int r, int g, int b)
+// int rgb_to_int(int r, int g, int b)
+int rgb_to_int(int rgb[3])
 {
+	int r = rgb[0];
+	int g = rgb[1];
+	int b = rgb[2];
     int color;
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
         return (-1);
-    
+
     color = (0 << 24 | r << 16 | g << 8 | b);
     return (color);
 }
@@ -26,7 +30,7 @@ int rgb_to_int(int r, int g, int b)
 void my_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
 	char *dst;
-    
+
     dst = game->imgadr + (y * game->llen + x * (game->bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -34,7 +38,7 @@ void my_mlx_pixel_put(t_game *game, int x, int y, int color)
 void draw_square(int x, int y, int width, int color, t_game *game)
 {
     int i, j;
-    
+
     i = 0;
 	while (i < width)
 	{
@@ -56,7 +60,7 @@ void put_img(t_game *game)
 void draw_rect(int x, int y, int width, int height, int color, t_game *game)
 {
     int i, j;
-    
+
     i = 0;
 	while (i < height)
 	{

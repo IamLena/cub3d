@@ -6,7 +6,7 @@
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 15:33:16 by nalecto           #+#    #+#             */
-/*   Updated: 2020/09/14 16:49:05 by nalecto          ###   ########.fr       */
+/*   Updated: 2020/10/22 00:44:05 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // # define RAYS   512
 # define WIN_H 250
 
-int rgb_to_int(int r, int g, int b);
+int rgb_to_int(int rgb[3]);
 void my_mlx_pixel_put(t_game *game, int x, int y, int color);
 void draw_square(int x, int y, int width, int color, t_game *game);
 void draw_rect(int x, int y, int width, int height, int color, t_game *game);

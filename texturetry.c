@@ -6,16 +6,16 @@
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:32:19 by nalecto           #+#    #+#             */
-/*   Updated: 2020/10/21 13:23:51 by nalecto          ###   ########.fr       */
+/*   Updated: 2020/09/24 15:24:34 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
+#include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 400
+#define HEIGHT 300
 #define NAME "my cub3D"
 
 typedef struct s_data {
@@ -44,7 +44,7 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 void draw_square(int x, int y, int width, int color, t_data *data)
 {
     int i, j;
-
+    
     i = 0;
 	while (i < width)
 	{
@@ -79,7 +79,7 @@ int main(void)
 	if (!vars.window)
 		perror("window creation failed");
 
-    tex.img = mlx_xpm_file_to_image(vars.mlx_con, "textures/wall1.xpm", &tex.width, &tex.height);
+    tex.img = mlx_xpm_file_to_image(vars.mlx_con, "textures/wall3.xpm", &tex.width, &tex.height);
     tex.addr = mlx_get_data_addr(tex.img, &tex.bpp, &tex.llen, &tex.endian);
 
 	int scale = 8;
@@ -88,7 +88,7 @@ int main(void)
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.llen, &img.endian);
 
 	int color;
-
+	
 	int i = 0;
 	while (i < tex.height)
 	{
@@ -101,7 +101,7 @@ int main(void)
 		}
 		i++;
 	}
-
+	
 	mlx_put_image_to_window(vars.mlx_con, vars.window, img.img, 0, 0);
 
     // mlx_hook(vars.window, 17, 0L, close, &vars);

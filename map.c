@@ -6,16 +6,27 @@
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 19:33:51 by nalecto           #+#    #+#             */
-/*   Updated: 2020/09/17 17:22:27 by nalecto          ###   ########.fr       */
+/*   Updated: 2020/10/22 22:07:42 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int borderend(char *line, char **msg)
+static int	borderends(char *line, char **msg)
 {
-	int len = ft_strlen(line) - 1;
-	while (line[len] == ' ')
+	int	len;
+	int	i;
+
+	len = ft_strlen(line) - 1;
+	i = 0;
+	while (i >= 0 && line[i] == ' ')
+		i++;
+	if (line[i] != '1')
+	{
+		*msg = ft_strdup("not closed map borders");
+		return (0);
+	}
+	while (len >= 0 && line[len] == ' ')
 		len--;
 	if (len >= 0 && line[len] != '1')
 	{
@@ -25,7 +36,7 @@ int borderend(char *line, char **msg)
 	return (1);
 }
 
-int symbol_ok(char **map, t_game *game, int i, int j, char **msg)
+static int	symbol_ok(char **map, t_game *game, int i, int j, char **msg)
 {
 	if (!isin(map[i][j], " 012NSEW"))
 	{
@@ -50,13 +61,27 @@ int symbol_ok(char **map, t_game *game, int i, int j, char **msg)
 	return (1);
 }
 
-int parsemap(t_game *game, char **msg)
+static void	init_player(t_game *game, char pos, int i, int j)
 {
-	char **map;
-	t_map_row *listmap;
-	t_map_row * listmap_head;
-	int i;
-	int j;
+	game->player_pos.x = j + 0.5;
+	game->player_pos.y = i + 0.5;
+	if (pos == 'N')
+		game->view_angle = 0;
+	else if (pos == 'E')
+		game->view_angle = 90;
+	else if (pos == 'S')
+		game->view_angle = 180;
+	else
+		game->view_angle = 270;
+}
+
+int			parsemap(t_game *game, char **msg)
+{
+	char		**map;
+	t_map_row	*listmap;
+	t_map_row	*listmap_head;
+	int			i;
+	int			j;
 
 	map = (char **)malloc((game->mapheight + 1) * sizeof(char *));
 	if (map)
@@ -72,7 +97,7 @@ int parsemap(t_game *game, char **msg)
 				while (listmap->line[j] != '\0')
 				{
 					map[i][j] = listmap->line[j];
-					if (!borderend(listmap->line, msg) || !symbol_ok(map, game, i, j, msg))
+					if (!borderends(listmap->line, msg) || !symbol_ok(map, game, i, j, msg))
 					{
 						free_matrix(map, i);
 						free_map(&listmap_head);
@@ -80,26 +105,10 @@ int parsemap(t_game *game, char **msg)
 						return (MAPERROR);
 					}
 					if (isin(map[i][j], "NSWE"))
+						init_player(game, map[i][j], i, j);
+					if (map[i][j] == '2')
 					{
-						game->player_pos.x = j + 0.5;
-						game->player_pos.y = i + 0.5;
-						// if (map[i][j] == 'N')
-						// 	game->view_angle = 270;
-						// else if (map[i][j] == 'E')
-						// 	game->view_angle = 0;
-						// else if (map[i][j] == 'S')
-						// 	game->view_angle = 90;
-						// else
-						// 	game->view_angle = 180;
-						//wrong
-						if (map[i][j] == 'N')
-							game->view_angle = 0;
-						else if (map[i][j] == 'E')
-							game->view_angle = 90;
-						else if (map[i][j] == 'S')
-							game->view_angle = 180;
-						else
-							game->view_angle = 270;
+						add_sprite(&game->sprites, i, j);
 					}
 					j++;
 				}
@@ -109,6 +118,14 @@ int parsemap(t_game *game, char **msg)
 					j++;
 				}
 				map[i][j] = '\0';
+			}
+			else
+			{
+				// malloc error
+				free_map(&listmap_head);
+				*msg = ft_strdup("malloc error");
+				game->map = NULL;
+				return (MAPERROR);
 			}
 			i++;
 			listmap = listmap->next;

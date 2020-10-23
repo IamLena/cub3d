@@ -9,7 +9,17 @@
 # define S_FLAG 0b00100000
 # define F_FLAG 0b01000000
 # define C_FLAG 0b10000000
-# define ALL_PARAMS 63
+# define ALL_PARAMS 255
+
+typedef struct s_sprite_list
+{
+	int y;
+	int x;
+	int height;
+	double dist;
+	char	cansee;
+	struct s_sprite_list *next;
+} t_sprite;
 
 typedef struct s_dot {
 	float x;
@@ -33,6 +43,7 @@ typedef struct s_wall_inter {
 	float y;
 	int color;
 	int type;
+	t_texture *texure;
 	double dist;
 	double tex_w;
 	double height;
@@ -66,7 +77,7 @@ typedef struct s_game {
 	int		mapheight;
 	t_dot	player_pos;
 	double		view_angle;
-
+	t_sprite	*sprites;
 } t_game;
 
 #endif
