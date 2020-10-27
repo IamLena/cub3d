@@ -118,10 +118,6 @@ static double get_angle(double dx, double dy, double c)
 	if (dx <= 0 && dy >= 0)
 		return (360 - (360 + to_degrees(asin(dx / c))));
 	return (360 - (180 -  to_degrees(asin(dx / c))));
-	//error here
-	// не 360, asin возвращает -90 ; + 90
-	// return (360 - to_degrees(asin(dx / c)));
-	// спрайт двигается если смотреть под углом и идти
 }
 
 void draw_sprite(t_game *game)
@@ -147,7 +143,7 @@ void draw_sprite(t_game *game)
 		// double xline1 = game->width / 2  + (angle - game->view_angle) / anglestep;
 
 		// double width= abs(xline0 - xline1);
-		double height = game->width / sorted_list->dist;
+		double height = game->height / sorted_list->dist;
 		// double width = height;
 		double width = game->width / sorted_list->dist;
 		double xline0 = xline - width / 2;
