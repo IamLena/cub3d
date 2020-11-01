@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maprow.h                                           :+:      :+:    :+:   */
+/*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/06 18:12:33 by nalecto           #+#    #+#             */
-/*   Updated: 2020/11/01 01:40:07 by nalecto          ###   ########.fr       */
+/*   Created: 2020/10/25 14:50:38 by nalecto           #+#    #+#             */
+/*   Updated: 2020/10/28 19:19:58 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPROW_H
-# define MAPROW_H
+#ifndef DRAW_H
+# define DRAW_H
 
-typedef struct	s_map_row
-{
-	char				*line;
-	int					len;
-	struct s_map_row	*next;
-}				t_map_row;
+# include "structures.h"
+# include "tools.h"
+# include "errors.h"
 
-int				borderokay(char *str);
-t_map_row		*new_row(char *str);
-int				append_row(t_map_row **head, \
-				int *maxwidth, char *str);
-void			free_map(t_map_row **head);
+t_wall_inter	get_side(double angle, double plpos[2], t_game *game);
+void			get_wall_intersections(t_game *game);
+void			draw_walls(t_game *game);
 
 #endif

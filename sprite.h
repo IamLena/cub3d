@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maprow.h                                           :+:      :+:    :+:   */
+/*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalecto <nalecto@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/06 18:12:33 by nalecto           #+#    #+#             */
-/*   Updated: 2020/11/01 01:40:07 by nalecto          ###   ########.fr       */
+/*   Created: 2020/10/24 01:59:52 by nalecto           #+#    #+#             */
+/*   Updated: 2020/11/01 01:41:28 by nalecto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAPROW_H
-# define MAPROW_H
+#ifndef SPRITE_H
+# define SPRITE_H
 
-typedef struct	s_map_row
-{
-	char				*line;
-	int					len;
-	struct s_map_row	*next;
-}				t_map_row;
+# include "structures.h"
+# include "tools.h"
+# include "errors.h"
 
-int				borderokay(char *str);
-t_map_row		*new_row(char *str);
-int				append_row(t_map_row **head, \
-				int *maxwidth, char *str);
-void			free_map(t_map_row **head);
+int			add_sprite(t_sprite **sprites_list, int i, int j, t_texture *tex);
+void		sprite_info(t_game *game);
+t_sprite	*copy_sprite(t_sprite *origin);
+void		free_list(t_sprite *list);
+void		draw_sprites(t_game *game);
 
 #endif

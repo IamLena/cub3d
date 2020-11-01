@@ -1,14 +1,14 @@
 NAME = cub3D
 CC = gcc
-# FLAGS = -Wall -Wextra -Werror -I.
-FLAGS = -g -I.
+FLAGS = -Wall -Wextra -Werror -g -I .
+
 MLX = libmlx.a
-# MLX = libmlx.dylib
-MLXDIR = ./mlx/
-LIBS = -L mlx -lmlx -L /usr/include/../lib -lXext -lX11 -lm -lbsd
-# LIBS = -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
-SRC = main.c init.c tools.c draw_tools.c draw.c maprow.c gnl_loop.c map.c
+MLXDIR = ./mlx_linux/
+LIBS = -L . -lmlx -L /usr/include/../lib -lXext -lX11 -lm -lbsd
+
+SRC = main.c initgame.c gnl_loop.c parsemap.c tools1.c tools2.c tools3.c tools4.c tools5.c maprow.c sprite.c walls.c save.c drawsprite.c sides.c parsefile.c
 OBJ = $(SRC:.c=.o)
+HEADERS = draw.h errors.h initgame.h maprow.h save.h sprite.h structures.h tools.h
 
 all : $(NAME)
 
@@ -17,15 +17,16 @@ $(NAME): $(MLX) $(OBJ)
 
 $(MLX):
 	$(MAKE) -C $(MLXDIR)
-	# mv $(MLXDIR)/$(MLX) .
+	cp $(MLXDIR)$(MLX) ./$(MLX)
 
-%.o : %.c
+%.o : %.c $(HEADERS)
 	$(CC) $(FLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o
+	$(MAKE) clean -C $(MLXDIR)
+	rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf cub3D $(MLX)
+	rm -rf cub3D $(MLX) *.bmp
 
 re: fclean all
